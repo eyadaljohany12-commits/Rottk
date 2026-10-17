@@ -1119,6 +1119,12 @@ function initUI() {
   applyLang(); syncSettings();
   requestAnimationFrame(tick);
   if (engine.ready) engine.ready.then(updateEngineBadge);
+
+  // PWA: service worker + "new game" shortcut
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    navigator.serviceWorker.register('sw.js').catch(() => { /* offline support unavailable */ });
+  }
+  if (new URLSearchParams(location.search).get('action') === 'new') startGame();
 }
 
 if (typeof document !== 'undefined') {
