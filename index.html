@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>شطرنج 960</title>
+    <!-- خط Cairo من جوجل -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <!-- ربط ملف التصميم بمسار نسبي -->
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body data-theme="wood">
 
@@ -22,7 +26,7 @@
         </div>
     </div>
 
-    <!-- Screen 2 & 11: Start Game / Menu -->
+    <!-- Screen 2: Start Game / Menu -->
     <div id="screen-menu" class="screen">
         <div class="glass-card">
             <div class="header-bar">
@@ -38,7 +42,7 @@
             <div class="menu-content">
                 <div class="profile-preview" onclick="navigate('screen-profile')">
                     <div class="avatar-ring">
-                        <img id="menu-avatar" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23e2c286'/><circle cx='50' cy='40' r='20' fill='%23333'/><path d='M20 100 Q50 60 80 100' fill='%23333'/></svg>" alt="User">
+                        <img id="menu-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23e2c286'/%3E%3Ccircle cx='50' cy='40' r='20' fill='%23333'/%3E%3Cpath d='M20 100 Q50 60 80 100' fill='%23333'/%3E%3C/svg%3E" alt="User">
                     </div>
                     <div>
                         <h3>زياد</h3>
@@ -69,7 +73,7 @@
             <div class="game-header">
                 <button onclick="navigate('screen-menu')">↩</button>
                 <h2>شطرنج 960</h2>
-                <span id="engine-status" class="status-badge">جاري التحليل...</span>
+                <span id="engine-status" class="status-badge">جاهز</span>
             </div>
             
             <div class="board-container">
@@ -78,13 +82,13 @@
 
             <div class="game-controls">
                 <button class="btn secondary small" onclick="toggleSound()">🔊</button>
-                <span id="fen-display" class="fen-text">FEN</span>
+                <span id="fen-display" class="fen-text">جاري التحميل...</span>
                 <button class="btn secondary small" onclick="randomize960()">🔄</button>
             </div>
         </div>
     </div>
 
-    <!-- Screen 4, 9: Settings -->
+    <!-- Screen 4: Settings -->
     <div id="screen-settings" class="screen">
         <div class="glass-card">
             <div class="header-bar">
@@ -117,19 +121,11 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-                
-                <div class="setting-item">
-                    <label>المؤثرات</label>
-                    <label class="switch">
-                        <input type="checkbox" id="effects-toggle" checked>
-                        <span class="slider"></span>
-                    </label>
-                </div>
             </div>
         </div>
     </div>
 
-    <!-- Screen 5, 6, 7, 8: Themes -->
+    <!-- Screen 5: Themes -->
     <div id="screen-themes" class="screen">
         <div class="glass-card">
             <div class="header-bar">
@@ -170,23 +166,19 @@
             
             <div class="profile-edit center-content">
                 <div class="avatar-ring-large">
-                    <img id="profile-avatar" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23e2c286'/><circle cx='50' cy='40' r='20' fill='%23333'/><path d='M20 100 Q50 60 80 100' fill='%23333'/></svg>" alt="User">
+                    <img id="profile-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23e2c286'/%3E%3Ccircle cx='50' cy='40' r='20' fill='%23333'/%3E%3Cpath d='M20 100 Q50 60 80 100' fill='%23333'/%3E%3C/svg%3E" alt="User">
                     <label for="avatar-upload" class="upload-btn">📷</label>
                     <input type="file" id="avatar-upload" accept="image/*" hidden>
                 </div>
                 <h3>زياد</h3>
                 <span class="elo-badge">1400 ELO</span>
-                
-                <div class="stats-grid">
-                    <div class="stat"><span>42</span> فوز</div>
-                    <div class="stat"><span>12</span> تعادل</div>
-                    <div class="stat"><span>8</span> خسارة</div>
-                </div>
             </div>
         </div>
     </div>
 
+    <!-- Chess.js Library from CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
-    <script src="app.js"></script>
+    <!-- Main Logic -->
+    <script src="./app.js"></script>
 </body>
-</html>
+                </html>
