@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>شطرنج 960</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="wood">
+
+    <!-- Screen 1: Splash -->
+    <div id="screen-splash" class="screen active">
+        <div class="glass-card center-content">
+            <div class="logo-container">
+                <span class="logo-icon">♞</span>
+            </div>
+            <h1>شطرنج 960</h1>
+            <p>شطرنج فيشر العشوائي</p>
+            <button class="btn primary" onclick="navigate('screen-menu')">ابدأ اللعبة ▶</button>
+            <button class="btn secondary" onclick="navigate('screen-settings')">الإعدادات ⚙</button>
+        </div>
+    </div>
+
+    <!-- Screen 2 & 11: Start Game / Menu -->
+    <div id="screen-menu" class="screen">
+        <div class="glass-card">
+            <div class="header-bar">
+                <button onclick="navigate('screen-splash')">↩</button>
+                <h2>شطرنج 960</h2>
+                <div class="engine-level">
+                    <button onclick="changeLevel(-1)">-</button>
+                    <span id="engine-level">10</span>
+                    <button onclick="changeLevel(1)">+</button>
+                </div>
+            </div>
+            
+            <div class="menu-content">
+                <div class="profile-preview" onclick="navigate('screen-profile')">
+                    <div class="avatar-ring">
+                        <img id="menu-avatar" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23e2c286'/><circle cx='50' cy='40' r='20' fill='%23333'/><path d='M20 100 Q50 60 80 100' fill='%23333'/></svg>" alt="User">
+                    </div>
+                    <div>
+                        <h3>زياد</h3>
+                        <span class="elo">1400</span>
+                    </div>
+                </div>
+
+                <div class="match-settings">
+                    <div class="setting-row" onclick="navigate('screen-themes')">
+                        <span>تغيير الثيم</span>
+                        <span>🎨</span>
+                    </div>
+                    <div class="setting-row" onclick="navigate('screen-settings')">
+                        <span>الإعدادات</span>
+                        <span>⚙</span>
+                    </div>
+                </div>
+
+                <button class="btn primary large" onclick="startGame()">ابدأ اللعبة ▶</button>
+                <button class="btn secondary" onclick="randomize960()">إعادة ضبط 🔄</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen 3: Gameplay -->
+    <div id="screen-game" class="screen">
+        <div class="glass-card game-card">
+            <div class="game-header">
+                <button onclick="navigate('screen-menu')">↩</button>
+                <h2>شطرنج 960</h2>
+                <span id="engine-status" class="status-badge">جاري التحليل...</span>
+            </div>
+            
+            <div class="board-container">
+                <div id="chessboard" class="chessboard"></div>
+            </div>
+
+            <div class="game-controls">
+                <button class="btn secondary small" onclick="toggleSound()">🔊</button>
+                <span id="fen-display" class="fen-text">FEN</span>
+                <button class="btn secondary small" onclick="randomize960()">🔄</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen 4, 9: Settings -->
+    <div id="screen-settings" class="screen">
+        <div class="glass-card">
+            <div class="header-bar">
+                <button onclick="navigate('screen-menu')">↩</button>
+                <h2>الإعدادات</h2>
+                <span></span>
+            </div>
+            
+            <div class="settings-list">
+                <div class="setting-item">
+                    <label>اللغة</label>
+                    <select id="lang-select" onchange="changeLanguage(this.value)">
+                        <option value="ar">العربية</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+                
+                <div class="setting-item">
+                    <label>تقييم المحرك</label>
+                    <label class="switch">
+                        <input type="checkbox" id="eval-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <label>الأصوات</label>
+                    <label class="switch">
+                        <input type="checkbox" id="sound-toggle" checked onchange="toggleSound(this.checked)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <label>المؤثرات</label>
+                    <label class="switch">
+                        <input type="checkbox" id="effects-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen 5, 6, 7, 8: Themes -->
+    <div id="screen-themes" class="screen">
+        <div class="glass-card">
+            <div class="header-bar">
+                <button onclick="navigate('screen-menu')">↩</button>
+                <h2>قائمة الثيمات</h2>
+                <span></span>
+            </div>
+            
+            <div class="theme-grid">
+                <div class="theme-card" data-theme="wood" onclick="setTheme('wood')">
+                    <div class="theme-preview wood-preview"></div>
+                    <span>خشبي كلاسيكي</span>
+                </div>
+                <div class="theme-card" data-theme="green" onclick="setTheme('green')">
+                    <div class="theme-preview green-preview"></div>
+                    <span>أخضر وأبيض</span>
+                </div>
+                <div class="theme-card" data-theme="blue" onclick="setTheme('blue')">
+                    <div class="theme-preview blue-preview"></div>
+                    <span>أزرق وأبيض</span>
+                </div>
+                <div class="theme-card" data-theme="red" onclick="setTheme('red')">
+                    <div class="theme-preview red-preview"></div>
+                    <span>أحمر وأبيض</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen 10: Profile -->
+    <div id="screen-profile" class="screen">
+        <div class="glass-card">
+            <div class="header-bar">
+                <button onclick="navigate('screen-menu')">↩</button>
+                <h2>الملف الشخصي</h2>
+                <span></span>
+            </div>
+            
+            <div class="profile-edit center-content">
+                <div class="avatar-ring-large">
+                    <img id="profile-avatar" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23e2c286'/><circle cx='50' cy='40' r='20' fill='%23333'/><path d='M20 100 Q50 60 80 100' fill='%23333'/></svg>" alt="User">
+                    <label for="avatar-upload" class="upload-btn">📷</label>
+                    <input type="file" id="avatar-upload" accept="image/*" hidden>
+                </div>
+                <h3>زياد</h3>
+                <span class="elo-badge">1400 ELO</span>
+                
+                <div class="stats-grid">
+                    <div class="stat"><span>42</span> فوز</div>
+                    <div class="stat"><span>12</span> تعادل</div>
+                    <div class="stat"><span>8</span> خسارة</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
